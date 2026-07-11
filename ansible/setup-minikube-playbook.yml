@@ -2,9 +2,16 @@
 - name: Instalar y configurar Minikube localmente
   hosts: localhost
   connection: local
-  become: true
+
+  vars_files:          
+    - ansible/vault.yml
+
+  vars:
+    ansible_become_password: "{{ vault_sudo_password }}"
+
   tasks:
     - name: Instalar dependencias necesarias
+      become: true     
       apt:
         name: "{{ item }}"
         state: present
@@ -14,14 +21,16 @@
         - virtualbox
 
     - name: Descargar Minikube
+      become: true     
       get_url:
         url: https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
         dest: /usr/local/bin/minikube
         mode: '0755'
 
-    - name: Descargar kubectl
+    - name: Descargar kubectl (Versión estable)
+      become: true     
       get_url:
-        url: https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+        url: https://dl.k8s.io/release/v1.31.0/bin/linux/amd64/kubectl
         dest: /usr/local/bin/kubectl
         mode: '0755'
 
