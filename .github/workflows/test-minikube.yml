@@ -1,0 +1,20 @@
+name: Test Minikube Setup
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test-minikube:
+    runs-on: self-hosted
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Ansible
+        uses: ansible/ansible-runner-action@v1
+
+      - name: Run Minikube setup playbook
+        run: ansible-playbook ansible/setup-minikube-playbook.yml
