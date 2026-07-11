@@ -1,6 +1,8 @@
+---
 - name: Instalar y configurar Minikube localmente
   hosts: localhost
-  become: yes
+  connection: local
+  become: true
   tasks:
     - name: Instalar dependencias necesarias
       apt:
