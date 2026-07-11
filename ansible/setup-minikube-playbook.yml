@@ -35,4 +35,4 @@
         mode: '0755'
 
     - name: Iniciar Minikube
-      command: minikube start --driver=virtualbox
+      command: minikube start --driver=docker
