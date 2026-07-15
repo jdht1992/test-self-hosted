@@ -18,7 +18,7 @@ jobs:
           echo "${{ secrets.ANSIBLE_VAULT_PASSWORD }}" > .vault_pass
           chmod 600 .vault_pass
 
-      - name: Run Minikube setup playbook
+      - name: Ejecutar el playbook de configuración de Minikube
         run: ansible-playbook ansible/setup-minikube-playbook.yml --vault-password-file .vault_pass
 
       - name: Limpiar archivo de contraseñas
